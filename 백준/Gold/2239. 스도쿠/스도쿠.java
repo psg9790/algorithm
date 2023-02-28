@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.*;
 
-
 public class Main {
     static int[][] arr = new int[9][9];
     static boolean[][] rowban = new boolean[9][10];
@@ -62,7 +61,6 @@ public class Main {
         for (int k = 1; k <= 9; k++) {
             if (possible(k, _pos.y, _pos.x)) {
                 ban(k, _pos.y, _pos.x);
-//                System.out.println("pos: " + _pos.y + " " + _pos.x + " " + arr[_pos.y][_pos.x]);
                 BackTracking(idx + 1);
                 if (success) {
                     return;
@@ -75,13 +73,6 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 10; j++) {
-                rowban[i][j] = false;
-                colban[i][j] = false;
-                boxban[i][j] = false;
-            }
-        }
         for (int i = 0; i < 9; i++) {
             String line = br.readLine();
             for (int j = 0; j < 9; j++) {
