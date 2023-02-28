@@ -36,17 +36,17 @@ public class Main {
 
         for (int i = 1; i <= m; i++) {
             st = new StringTokenizer(br.readLine());
-            as.add(Integer.parseInt(st.nextToken()));
-            bs.add(Integer.parseInt(st.nextToken()));
-        }
-        for (int i = 1; i <= m; i++) {
-            if (isUnion(as.get(i - 1), bs.get(i - 1))) {
+            int a, b;
+            a = Integer.parseInt(st.nextToken());
+            b = Integer.parseInt(st.nextToken());
+            if (isUnion(a, b)) {
                 System.out.println(i);
                 return;
             } else {
-                union(as.get(i - 1), bs.get(i - 1));
+                union(a, b);
             }
         }
+
 
         System.out.println(0);
     }
