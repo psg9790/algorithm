@@ -40,14 +40,17 @@ public class Main {
             a = Integer.parseInt(st.nextToken());
             b = Integer.parseInt(st.nextToken());
             if (isUnion(a, b)) {
-                System.out.println(i);
+                bw.write(String.valueOf(i));
+                bw.flush();
+                bw.close();
                 return;
             } else {
                 union(a, b);
             }
         }
 
-
-        System.out.println(0);
+        bw.write(String.valueOf(0));
+        bw.flush();
+        bw.close();
     }
 }
