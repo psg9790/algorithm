@@ -7,53 +7,36 @@ public class Main {
     static int n, m;
     static int[][] arr;
 
-    static int CalcDist(int y, int x) {
-        return Math.abs(y - n) + Math.abs(x - m);
-    }
+    static int BFS_01() {
+        int[][] dp = new int[n + 1][m + 1];
+        for (int i = 1; i <= n; i++) {
+            Arrays.fill(dp[i], -1);
+        }
+        LinkedList<Pos> q = new LinkedList<>();
+        q.add(new Pos(1, 1));
+        dp[1][1] = 0;
+        while (!q.isEmpty()) {
+            Pos frt = q.poll();
 
-    static int Dijkstra() {
-        int result = 0;
-        Set<Pos> visited = new HashSet<>();
-        PriorityQueue<Pos> pq = new PriorityQueue<>(new Comparator<Pos>() {
-            @Override
-            public int compare(Pos o1, Pos o2) {
-                if (o1.broken == o2.broken) {
-                    return o1.dist - o2.dist;
-                }
-                return o1.broken - o2.broken;
-            }
-        });
-        pq.add(new Pos(1, 1, 0, CalcDist(1, 1)));
-        while (!pq.isEmpty()) {
-            Pos frt = pq.poll();
             for (int k = 0; k < 4; k++) {
                 int yy = frt.y + dy[k];
                 int xx = frt.x + dx[k];
-                if (yy >= 1 && yy <= n && xx >= 1 && xx <= m) {
-                    if (yy == n &&
-                            xx == m) {
-                        result = frt.broken;
-                        return result;
-                    }
-                    if (arr[yy][xx] == 0) {
-                        Pos newpos = new Pos(yy, xx, frt.broken, CalcDist(yy, xx));
-                        if (visited.contains(newpos)) {
-                            continue;
-                        }
-                        pq.add(newpos);
-                        visited.add(newpos);
-                    } else if (arr[yy][xx] == 1) {
-                        Pos newpos = new Pos(yy, xx, frt.broken + 1, CalcDist(yy, xx));
-                        if (visited.contains(newpos)) {
-                            continue;
-                        }
-                        pq.add(newpos);
-                        visited.add(newpos);
-                    }
+                if (yy < 1 | yy > n | xx < 1 | xx > m) {
+                    continue;
+                }
+                if (dp[yy][xx] != -1) {
+                    continue;
+                }
+                if (arr[yy][xx] == 0) {
+                    dp[yy][xx] = dp[frt.y][frt.x];
+                    q.add(0, new Pos(yy, xx));
+                } else if (arr[yy][xx] == 1) {
+                    dp[yy][xx] = dp[frt.y][frt.x] + 1;
+                    q.add(new Pos(yy, xx));
                 }
             }
         }
-        return result;
+        return dp[n][m];
     }
 
     public static void main(String[] args) throws IOException {
@@ -68,37 +51,17 @@ public class Main {
                 arr[i][j] = line.charAt(j - 1) - '0';
             }
         }
-        System.out.println(Dijkstra());
+        System.out.println(BFS_01());
     }
 }
 
 class Pos {
     int y, x;
     int broken;
-    int dist;
 
-    public Pos(int y, int x, int broken, int dist) {
+    public Pos(int y, int x) {
         this.y = y;
         this.x = x;
-        this.broken = broken;
-        this.dist = dist;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Pos) {
-            if (this.y == ((Pos) obj).y &&
-                    this.x == ((Pos) obj).x &&
-                    this.broken == ((Pos) obj).broken) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return this.y * 101 + this.x + this.broken * 10101;
     }
 }
 
