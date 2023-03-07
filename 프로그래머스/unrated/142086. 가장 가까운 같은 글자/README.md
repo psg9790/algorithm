@@ -1,10 +1,10 @@
 # [unrated] 가장 가까운 같은 글자 - 142086 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/142086) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/142086?language=cpp) 
 
 ### 성능 요약
 
-메모리: 5.21 MB, 시간: 2.22 ms
+메모리: 5.17 MB, 시간: 3.12 ms
 
 ### 구분
 
