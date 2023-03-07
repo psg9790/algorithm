@@ -1,19 +1,16 @@
 #include <vector>
+#include <set>
+#include <algorithm>
+
 using namespace std;
 
 int solution(vector<int> nums)
 {
     int answer = 0;
-    vector<int> arr(200'001, 0);
+    set<int> ss;
     for(auto x : nums){
-        arr[x]++;
+        ss.insert(x);
     }
-    for(auto x : arr){
-        if(x > 0){
-            answer++;
-            if(answer == nums.size() / 2)
-                return answer;
-        }
-    }
+    answer = min(nums.size() / 2, ss.size());
     return answer;
 }
