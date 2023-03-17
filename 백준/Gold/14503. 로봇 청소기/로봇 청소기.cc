@@ -17,47 +17,8 @@ struct Robot
     Robot(int y, int x, int d) : pos({y, x}), dir(d) {}
 };
 Robot *robot;
+
 int result = 0;
-
-void PrintArr()
-{
-    cout << "=============\n";
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < m; j++)
-        {
-            if (robot->pos.first == i &&
-                robot->pos.second == j)
-            {
-                if (robot->dir == 0)
-                {
-                    cout << "^ ";
-                }
-                else if (robot->dir == 1)
-                {
-                    cout << "> ";
-                }
-                else if (robot->dir == 2)
-                {
-                    cout << "v ";
-                }
-                else if (robot->dir == 3)
-                {
-                    cout << "< ";
-                }
-                continue;
-            }
-            else if (v[i][j])
-            {
-                cout << 'C' << ' ';
-                continue;
-            }
-            cout << arr[i][j] << ' ';
-        }
-        cout << '\n';
-    }
-}
-
 int main()
 {
     ios_base::sync_with_stdio(0);
@@ -70,19 +31,11 @@ int main()
     robot = new Robot(y, x, d);
 
     for (int i = 0; i < n; i++)
-    {
         for (int j = 0; j < m; j++)
-        {
             cin >> arr[i][j];
-        }
-    }
 
-    // PrintArr();
     while (robot->Move())
     {
-        // cout << robot->dir << '\n';
-        // PrintArr();
-        // cout << robot->pos.first << ' ' << robot->pos.second << ' ' << robot->dir << '\n';
     }
     cout << result;
 }
@@ -114,7 +67,9 @@ bool Robot::Move()
         }
     }
 
-    int opposite = OppositeDir();
+    int opposite = dir - 2;
+    if (opposite < 0)
+        opposite += 4;
     int yy = pos.first + dy[opposite];
     int xx = pos.second + dx[opposite];
     if (arr[yy][xx] != 1)
@@ -124,23 +79,4 @@ bool Robot::Move()
     }
 
     return false;
-}
-int Robot::OppositeDir()
-{
-    if (dir == 0)
-    {
-        return 2;
-    }
-    else if (dir == 1)
-    {
-        return 3;
-    }
-    else if (dir == 2)
-    {
-        return 0;
-    }
-    else if (dir == 3)
-    {
-        return 1;
-    }
 }
