@@ -13,7 +13,6 @@ struct Robot
     ip pos;
     int dir;
     bool Move();
-    int OppositeDir();
     Robot(int y, int x, int d) : pos({y, x}), dir(d) {}
 };
 Robot *robot;
