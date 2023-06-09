@@ -6,6 +6,7 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st;
 
         int mxv = -1;
@@ -21,7 +22,12 @@ public class Main {
                 }
             }
         }
-        System.out.println(mxv);
-        System.out.println(pos[0] + " " + pos[1]);
+        bw.append(String.valueOf(mxv));
+        bw.append("\n");
+        bw.append(String.valueOf(pos[0]));
+        bw.append(" ");
+        bw.append(String.valueOf(pos[1]));
+        bw.flush();
+        bw.close();
     }
 }
