@@ -5,6 +5,9 @@ int n, m;
 
 int main()
 {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+
     while (true)
     {
         cin >> n >> m;
@@ -12,9 +15,6 @@ int main()
         if (n == 0 && m == 0)
             break;
 
-        if (n > m)
-            cout << "Yes" << '\n';
-        else
-            cout << "No" << '\n';
+        cout << ((n > m) ? "Yes" : "No") << '\n';
     }
 }
