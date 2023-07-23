@@ -4,8 +4,10 @@ using namespace std;
 vector<bool> globalVisited;
 set<int> result;
 vector<int> arr;
+vector<int> lines;
+vector<bool> visited;
 
-void dfs(int node, vector<int> &lines, vector<bool> &visited)
+void dfs(int node)
 {
     while (true)
     {
@@ -58,9 +60,9 @@ void solve()
     {
         if (!globalVisited[i]) // dfs start
         {
-            vector<bool> visited(n + 1, false);
-            vector<int> lines;
-            dfs(i, lines, visited);
+            visited.assign(n + 1, false);
+            lines.clear();
+            dfs(i);
         }
     }
 
