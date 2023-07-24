@@ -22,12 +22,15 @@ int main()
 
     cin >> n >> k;
     students.resize(n);
+    ll greatest = 0;
     for (int i = 0; i < n; i++)
+    {
         cin >> students[i];
+        greatest = (greatest < students[i]) ? students[i] : greatest;
+    }
 
-    sort(students.begin(), students.end());
     ll lower = 0;
-    ll upper = students[students.size() - 1];
+    ll upper = greatest;
     ll mid, buffer;
     while (lower <= upper)
     {
@@ -40,8 +43,6 @@ int main()
                 goto OVERFLOWED;
         }
 
-        // cout << "lower upper : " << lower << ' ' << upper << '\n';
-        // cout << "mid: " << mid << ' ' << nsum << '\n';
         if (nsum > k) // too many
         {
         OVERFLOWED:
@@ -58,7 +59,6 @@ int main()
             break;
         }
     }
-    // cout << mid << ' ' << buffer << '\n';
     mid = buffer;
     cout << mid << '\n';
 }
