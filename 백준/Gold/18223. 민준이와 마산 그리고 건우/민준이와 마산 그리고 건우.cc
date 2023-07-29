@@ -6,6 +6,7 @@ using ip = pair<int, int>;
 
 int v, e, p;
 vector<vector<ip>> adjs;
+vector<int> dist;
 
 struct pqcmp
 {
@@ -15,39 +16,33 @@ struct pqcmp
     }
 };
 
-int dijkstra(int start, int end)
+void dijkstra(int start)
 {
-    int result = 0;
+    dist.clear();
+    dist.assign(v + 1, INT_MAX);
+
     priority_queue<ip, vector<ip>, pqcmp> pq;
-    vector<bool> visited(v + 1);
-    visited[1] = true;
-    for (int i = 0; i < adjs[start].size(); i++)
-        pq.push(adjs[start][i]);
+    dist[start] = 0;
+    pq.push({start, 0});
 
     while (!pq.empty())
     {
-        ip frt = pq.top();
-        int cur = frt.first, curCost = frt.second;
+        int cur = pq.top().first, curCost = pq.top().second;
         pq.pop();
-        if (cur == end)
-        {
-            result = curCost;
-            break;
-        }
 
-        if (visited[cur])
+        if (curCost > dist[cur])
             continue;
-        visited[cur] = true;
 
         for (int i = 0; i < adjs[cur].size(); i++)
         {
             int next = adjs[cur][i].first, nextCost = adjs[cur][i].second;
-            if (visited[next])
+            int stepCost = curCost + nextCost;
+            if (dist[next] <= stepCost)
                 continue;
-            pq.push({next, curCost + nextCost});
+            dist[next] = stepCost;
+            pq.push({next, stepCost});
         }
     }
-    return result;
 }
 
 void solve()
@@ -63,8 +58,12 @@ void solve()
         adjs[b].push_back({a, c});
     }
 
-    int shortcut = dijkstra(1, v);
-    int geonwoo = dijkstra(1, p) + dijkstra(p, v);
+    dijkstra(1);
+    int shortcut = dist[v];
+    int geonwoo = dist[p];
+    dijkstra(p);
+    geonwoo += dist[v];
+
     if (shortcut == geonwoo)
         cout << "SAVE HIM" << '\n';
     else
