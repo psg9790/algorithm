@@ -18,7 +18,6 @@ struct pqcmp
 
 void dijkstra(int start)
 {
-    dist.clear();
     dist.assign(v + 1, INT_MAX);
 
     priority_queue<ip, vector<ip>, pqcmp> pq;
