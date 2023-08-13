@@ -32,13 +32,6 @@ void solve()
         ip frt = q.front();
         q.pop();
 
-        if (frt.first == n - 1 && frt.second == m - 1)
-        {
-            cout << "YES" << '\n';
-            cout << visited[n - 1][m - 1] << '\n';
-            return;
-        }
-
         for (int i = 0; i < 2; i++)
         {
             int yy = frt.first + dy[i];
@@ -54,6 +47,12 @@ void solve()
                     q.push({yy, xx});
                 }
         }
+    }
+    if (visited[n - 1][m - 1] < INT_MAX)
+    {
+        cout << "YES" << '\n';
+        cout << visited[n - 1][m - 1] << '\n';
+        return;
     }
     cout << "NO" << '\n';
 }
