@@ -22,7 +22,7 @@ int n, m, k;
 int src, dst;
 vector<vector<ip>> adj;
 set<tuple<int, int, int>> forbid;
-set<string> visited;
+set<tuple<int, int, int>> visited;
 ll ans = 0;
 
 class route
@@ -31,20 +31,6 @@ public:
     int num;
     ll cost;
     ip past;
-
-    string Serialize()
-    {
-        string rst;
-        rst += to_string(num);
-        rst += ',';
-        // rst += to_string(cost);
-        // rst += ',';
-        rst += to_string(past.first);
-        rst += ',';
-        rst += to_string(past.second);
-        debug(rst);
-        return rst;
-    }
 
     vector<route *> Simulate()
     {
@@ -97,15 +83,14 @@ void Dijkstra()
         vector<route *> ret = frt->Simulate();
         for (auto r : ret)
         {
-            string serial = r->Serialize();
-            if (visited.find(serial) != visited.end()) // 중복케이스
+            tuple<int, int, int> t = r->Past3();
+            if (visited.find(t) != visited.end()) // 중복케이스
                 continue;
 
-            tuple<int, int, int> t = r->Past3();
             if (forbid.find(t) != forbid.end()) // 금지 루트
                 continue;
 
-            visited.insert(serial);
+            visited.insert(t);
             pq.push(r);
         }
     }
